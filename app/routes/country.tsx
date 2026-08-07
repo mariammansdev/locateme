@@ -1,7 +1,7 @@
+import CountryClock from "~/components/CountryClock";
 import type { Route } from "./+types/country";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
-  console.log(params.countryName);
   const response = await fetch(
     `https://countries.dev/countries/name/${params.countryName}`,
   );
@@ -9,27 +9,29 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
   return data;
 }
 const country = ({ loaderData }: Route.ComponentProps) => {
+  const countryData = loaderData[0];
   const country = {
-    name: loaderData.name,
-    officialName: loaderData.name,
-    region: loaderData.region,
-    subregion: loaderData.subregion,
-    capital: loaderData.capital,
-    population: loaderData.population,
-    area: loaderData.area,
-    languages: loaderData.languages,
-    currencies: loaderData.currencies,
-    flag: loaderData.flag,
+    name: countryData.name,
+    officialName: countryData.name,
+    region: countryData.region,
+    subregion: countryData.subregion,
+    capital: countryData.capital,
+    population: countryData.population,
+    area: countryData.area,
+    languages: countryData.languages,
+    currencies: countryData.currencies,
+    flag: countryData.flag,
   };
-
+debugger
   return (
-    <>
-      {Object.keys(country).map((key) => (
+    <div className= " grid items-center justify-center">
+    <CountryClock country={country.capital} timezone={`${country.region}/${country.capital}`} />
+      {/* {Object.keys(country).map((key) => (
         <div key={key}>
           <strong>{key}:</strong> {country[key as keyof typeof country]}
         </div>
-      ))}
-    </>
+      ))} */}
+    </div>
   );
 };
 

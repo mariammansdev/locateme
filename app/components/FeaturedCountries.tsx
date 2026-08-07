@@ -3,16 +3,18 @@ import { FaGlobe } from "react-icons/fa";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
 const FeaturedCountries = ({
-  featuredCountries,
+  featuredCountries, showHeader = true
 }: {
-  featuredCountries: any[];
+  featuredCountries: any[], showHeader?: boolean
 }) => {
   return (
     <section className="space-y-8">
       <div className="mb-4 flex flex-col gap-3">
-        <h2 className="text-3xl md:text-4xl font-semibold text-white">
-          Discover something new each visit
-        </h2>
+        {showHeader && (
+          <h2 className="text-3xl md:text-4xl font-semibold text-white">
+            Discover something new each visit
+          </h2>
+        )}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">

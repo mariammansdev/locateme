@@ -20,6 +20,7 @@ import FeaturedCountries from "../components/FeaturedCountries";
 import euoropeImg from "../assets/europe.png";
 import northAmericaImg from "../assets/northamerica.png";
 import africaImg from "../assets/africa.png";
+import CountriesDashboard from "~/components/CountriesDashboard";
 
 
 
@@ -174,6 +175,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </div>
+            <CountriesDashboard filteredCountries={loaderData} />
 
      
 
