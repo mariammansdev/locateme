@@ -4,6 +4,7 @@ import { useState } from "react";
 import { lazy, Suspense } from "react";
 import CountriesDashboard from "~/components/CountriesDashboard";
 import FeaturedCountries from "~/components/FeaturedCountries";
+import CountriesFilter from "~/components/CountriesFilter";
 
 const LocateMap = lazy(() => import("~/components/LocateMap"));
 
@@ -44,33 +45,26 @@ const Countries = ({loaderData} : Route.ComponentProps) => {
     console.log(loaderData)
     return (
         <div>
-            <div className="mb-4 flex flex-col gap-4 rounded-xl bg-[#0B0E14] backdrop-blur-md bg-opacity-60 text-white shadow-lg border border-blue-950 p-4 md:flex-row md:items-center md:justify-between">
-                <input
-                    type="text"
-                    value={search}
-                    placeholder="Search countries..."
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-white outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 md:w-[60%] md:max-w-xl"
+            <div className="grid items-center justify-center ">
+                <CountriesFilter
+                    search={search}
+                    handleSearch={handleSearch}
+                    region={region}
+                    handleRegion={handleRegion}
                 />
-                <select
-                    value={region}
-                    onChange={(e) => handleRegion(e.target.value)}
-                    className="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-white outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 md:w-72"
-                >
-                    <option value="">All Regions</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Americas">Americas</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Oceania">Oceania</option>
-                </select>
             </div>
-
-            <Suspense fallback={<div>Loading map...</div>}>
-                <LocateMap countries={pagedCountries} />
-            </Suspense>
-            <FeaturedCountries featuredCountries={pagedCountries} showHeader={false} />
             
+                    <div className="mb-4 flex min-h-[25rem] flex-col gap-3 rounded-xl bg-[#0B0E14] backdrop-blur-md bg-opacity-60 text-white shadow-lg border border-blue-950 p-4 lg:flex-row lg:items-stretch">
+                <div className="lg:w-2/5 lg:min-h-[25rem] lg:flex lg:flex-col">
+                    <Suspense fallback={<div>Loading map...</div>}>
+                        <LocateMap countries={pagedCountries} />
+                    </Suspense>
+                </div>
+                <div className="lg:w-3/5 lg:min-h-[25rem] lg:flex lg:flex-col">
+                    <CountriesDashboard filteredCountries={filteredCountries} />
+                </div>
+            </div>
+           
             {filteredCountries.length > pageSize && (
                 <div className="mt-6 flex flex-col items-center justify-between gap-3 rounded-xl bg-[#0B0E14] bg-opacity-60 p-4 text-white shadow-lg border border-blue-950 md:flex-row">
                     <p className="text-sm text-slate-300">
@@ -96,6 +90,9 @@ const Countries = ({loaderData} : Route.ComponentProps) => {
                     </div>
                 </div>
             )}
+            <FeaturedCountries featuredCountries={pagedCountries} showHeader={false} />
+            
+           
           
         </div>
     )

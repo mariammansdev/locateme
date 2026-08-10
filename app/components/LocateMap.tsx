@@ -29,7 +29,7 @@ const LocateMap = ({ countries }: LocateMapProps) => {
       : defaultCenter;
 
   return (
-    <MapContainer center={center} zoom={2} scrollWheelZoom={false} className="mb-4 h-[500px] w-full rounded-lg">
+    <MapContainer center={center} zoom={2} scrollWheelZoom={false} className="h-full w-full rounded-lg">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

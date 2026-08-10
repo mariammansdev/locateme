@@ -7,7 +7,7 @@ function CountriesDashboard({ filteredCountries }: { filteredCountries: any[] })
     const formattedTotalLanguages = formatNumberShort(getUniqueLanguagesCount(filteredCountries));
     const formattedTotalCurrencies = formatNumberShort(getUniqueCurrenciesCount(filteredCountries));
     return (
-        <div className="mb-4 grid gap-4 rounded-xl bg-[#0B0E14] backdrop-blur-md bg-opacity-60 text-white shadow-lg border border-blue-950 p-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="h-full mb-4 grid gap-4 rounded-xl bg-[#0B0E14] backdrop-blur-md bg-opacity-60 text-white shadow-lg border border-blue-950 p-4 sm:grid-cols-2 xl:grid-cols-4">
             <div className="flex items-center gap-4 rounded-3xl bg-slate-950/60 p-6">
                 <FaGlobe size={20} className="bg-[#35339c5f]/60 p-4 text-[#5b6cc9] rounded-full" />
                 <div>

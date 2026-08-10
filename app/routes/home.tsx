@@ -175,10 +175,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </div>
-            <CountriesDashboard filteredCountries={loaderData} />
 
-     
-
+      <CountriesDashboard filteredCountries={loaderData} />
       <Regions regions={regions} />
       <FeaturedCountries featuredCountries={featuredCountries} />
     </div>
