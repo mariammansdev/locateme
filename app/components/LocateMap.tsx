@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -12,12 +13,24 @@ type CountryMarker = {
 
 type LocateMapProps = {
   countries: CountryMarker[];
+  zoom?: number;
 };
 
-const LocateMap = ({ countries }: LocateMapProps) => {
+const LocateMap = ({ countries, zoom }: LocateMapProps) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const validCountries = countries.filter((country) => {
     const latlng = country.latlng ?? country.capitalInfo?.latlng;
-    return Array.isArray(latlng) && latlng.length === 2 && Number.isFinite(latlng[0]) && Number.isFinite(latlng[1]);
+    return (
+      Array.isArray(latlng) &&
+      latlng.length === 2 &&
+      Number.isFinite(latlng[0]) &&
+      Number.isFinite(latlng[1])
+    );
   });
 
   const firstCountry = validCountries[0];
@@ -28,8 +41,20 @@ const LocateMap = ({ countries }: LocateMapProps) => {
       ? [firstCountry.capitalInfo.latlng[0], firstCountry.capitalInfo.latlng[1]]
       : defaultCenter;
 
+  if (!isClient) {
+    return (
+      <div className="h-[25rem] w-full rounded-lg border border-slate-700 bg-slate-900/40" />
+    );
+  }
+
   return (
-    <MapContainer center={center} zoom={2} scrollWheelZoom={false} className="h-full w-full rounded-lg">
+    <MapContainer
+      center={center}
+      zoom={zoom || 2}
+      scrollWheelZoom={false}
+      className="h-[25rem] w-full rounded-lg"
+      style={{ height: "25rem", width: "100%" }}
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
