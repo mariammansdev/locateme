@@ -5,13 +5,14 @@ import { lazy, Suspense } from "react";
 import CountriesDashboard from "~/components/CountriesDashboard";
 import FeaturedCountries from "~/components/FeaturedCountries";
 import CountriesFilter from "~/components/CountriesFilter";
+import { saveCountriesCache } from "~/utils/countryCache";
 
 const LocateMap = lazy(() => import("~/components/LocateMap"));
 
 export async function clientLoader() {
   const response = await fetch("https://countries.dev/countries");
   const data = await response.json();
-  return data;
+  return saveCountriesCache(data);
 }
 const Countries = ({ loaderData }: Route.ComponentProps) => {
   const [search, setSearch] = useState<string>("");

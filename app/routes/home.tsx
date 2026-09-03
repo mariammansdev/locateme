@@ -21,8 +21,7 @@ import euoropeImg from "../assets/europe.png";
 import northAmericaImg from "../assets/northamerica.png";
 import africaImg from "../assets/africa.png";
 import CountriesDashboard from "~/components/CountriesDashboard";
-
-
+import { saveCountriesCache } from "~/utils/countryCache";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -34,7 +33,7 @@ export function meta({}: Route.MetaArgs) {
 export async function clientLoader() {
   const response = await fetch("https://countries.dev/countries");
   const data = await response.json();
-  return data;
+  return saveCountriesCache(data);
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
